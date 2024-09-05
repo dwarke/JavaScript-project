@@ -1,0 +1,66 @@
+<h1>Profile Update</h1>
+
+<form>
+    <table border="1">
+        <tr>
+            <td>Name :-</td>
+            <td><input type="text" id="name" /></td>
+        </tr>
+        <tr>
+            <td>Email :-</td>
+            <td><input type="text" id="email" /></td>
+        </tr>
+        <tr>
+            <td>Password :-</td>
+            <td><input type="text" id="password" /></td>
+        </tr>
+        <tr>
+            <td>File Upload :-</td>
+            <td>
+                <input type="file" id="images">
+                <img id="showimages" alt="img" width="50px" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="button" value="profile" onclick="profile()" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+<script type="text/javascript">
+  let val = JSON.parse(localStorage.getItem('userloging'));
+  let record = JSON.parse(localStorage.getItem('regiterdata'));
+  document.getElementById('name').value = val[0].name
+  document.getElementById('email').value = val[0].email
+  document.getElementById('password').value = val[0].password
+  document.getElementById('showimages').setAttribute('src', val[0].images)
+  function profile() {
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+    let images = document.getElementById('images').value;
+    let imagesparth = images.replace("C:\\fakepath\\", "images/");
+    // console.log(images.replace("C:\\fakepath\\","images/"));
+    for (let i in record) {
+      if (record[i].id == val[0].id) {
+        record[i].name = name
+        record[i].email = email
+        record[i].password = password
+        record[i].images = imagesparth
+        val[0].name = name;
+        val[0].email = email;
+        val[0].password = password;
+        val[0].images = imagesparth;
+
+      }
+      localStorage.setItem('regiterdata', JSON.stringify(record));  
+      localStorage.setItem('userloging', JSON.stringify(val));
+        alert("Profile is successfully Add!")
+        window.location.href="index.html";
+    }
+  }
+</script>
